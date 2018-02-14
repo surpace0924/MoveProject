@@ -1,0 +1,112 @@
+[
+    {
+        "module": "MPU6050\\MPU6050.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 942
+        }
+    }, 
+    {
+        "module": "SBUS\\SBUS.o", 
+        "size": {
+            ".data": 0, 
+            ".bss": 25, 
+            ".text": 612
+        }
+    }, 
+    {
+        "module": "[fill]", 
+        "size": {
+            ".data": 0, 
+            ".bss": 22, 
+            ".text": 120
+        }
+    }, 
+    {
+        "module": "[lib]\\c.a", 
+        "size": {
+            ".data": 2204, 
+            ".bss": 56, 
+            ".text": 27114
+        }
+    }, 
+    {
+        "module": "[lib]\\gcc.a", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 3752
+        }
+    }, 
+    {
+        "module": "[lib]\\m.a", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 88
+        }
+    }, 
+    {
+        "module": "[lib]\\misc", 
+        "size": {
+            ".data": 16, 
+            ".bss": 28, 
+            ".text": 236
+        }
+    }, 
+    {
+        "module": "main.o", 
+        "size": {
+            ".data": 4, 
+            ".bss": 1176, 
+            ".text": 1200
+        }
+    }, 
+    {
+        "module": "mbed-os\\drivers", 
+        "size": {
+            ".data": 4, 
+            ".bss": 144, 
+            ".text": 2465
+        }
+    }, 
+    {
+        "module": "mbed-os\\hal", 
+        "size": {
+            ".data": 4, 
+            ".bss": 66, 
+            ".text": 1559
+        }
+    }, 
+    {
+        "module": "mbed-os\\platform", 
+        "size": {
+            ".data": 4, 
+            ".bss": 354, 
+            ".text": 3025
+        }
+    }, 
+    {
+        "module": "mbed-os\\rtos", 
+        "size": {
+            ".data": 168, 
+            ".bss": 5989, 
+            ".text": 9061
+        }
+    }, 
+    {
+        "module": "mbed-os\\targets", 
+        "size": {
+            ".data": 4, 
+            ".bss": 624, 
+            ".text": 14792
+        }
+    }, 
+    {
+        "summary": {
+            "static_ram": 10892, 
+            "total_flash": 67374
+        }
+    }
+]

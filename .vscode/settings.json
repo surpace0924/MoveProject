@@ -1,0 +1,19 @@
+{
+    "files.associations": {
+        "deque": "cpp",
+        "initializer_list": "cpp",
+        "list": "cpp",
+        "vector": "cpp",
+        "xhash": "cpp",
+        "xstring": "cpp",
+        "xtree": "cpp",
+        "xutility": "cpp",
+        "ostream": "cpp",
+        "istream": "cpp",
+        "system_error": "cpp",
+        "xfunctional": "cpp",
+        "xtr1common": "cpp",
+        "queue": "cpp",
+        "type_traits": "cpp"
+    }
+}
