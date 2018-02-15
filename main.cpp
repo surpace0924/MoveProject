@@ -1,13 +1,9 @@
 #include <mbed.h>
-#include "Macro/Macro.h"
-#include "SBUS/SBUS.hpp"
-#include "MPU6050/MPU6050.hpp"
-
-namespace cycle
-{
-const double DEBUG_OUTPUT = 0.010;
-const double LOOP = 0.010;
-}
+#include "Config.hpp"
+#include "Macro.h"
+#include "Libraries/SBUS/SBUS.hpp"
+#include "Libraries/MPU6050/MPU6050.hpp"
+#include "Libraries/Mecanum/Mecanum.hpp"
 
 DigitalOut led1(LED1);
 MPU6050 mpu(PB_9, PB_8);
@@ -29,7 +25,8 @@ double target = 0;
 
 int main()
 {
-    xbee.baud(57600);
+    xbee.baud(baud::XBEE);
+
     deltaTimer.start();
 
     debugOutputTimer.attach(&debug, cycle::DEBUG_OUTPUT);

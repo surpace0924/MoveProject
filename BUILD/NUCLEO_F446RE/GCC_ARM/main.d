@@ -190,4 +190,6 @@ BUILD\NUCLEO_F446RE\GCC_ARM\main.o: main.cpp \
  mbed-os/platform/FileHandle.h mbed-os/platform/DirHandle.h \
  mbed-os/platform/CriticalSectionLock.h mbed-os/platform/DeepSleepLock.h \
  mbed-os/platform/Callback.h mbed-os/platform/FunctionPointer.h \
- Macro/Macro.h SBUS/SBUS.hpp MPU6050/MPU6050.hpp MPU6050/Arduino.h
+ Config.hpp Macro.h Libraries/SBUS/SBUS.hpp Libraries/MPU6050/MPU6050.hpp \
+ Libraries/MPU6050/Arduino.h Libraries/Mecanum/Mecanum.hpp \
+ Libraries/MPU6050/Arduino.h Libraries/Mecanum/Macro.h

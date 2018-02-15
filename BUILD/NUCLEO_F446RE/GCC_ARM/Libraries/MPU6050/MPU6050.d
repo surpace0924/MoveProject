@@ -1,9 +1,7 @@
-BUILD\NUCLEO_F446RE\GCC_ARM\test_env.o: \
- C:\Users\ryoga\Documents\GitHub\MoveProject\mbed-os\features/unsupported\tests\mbed\env\test_env.cpp \
- BUILD\NUCLEO_F446RE\GCC_ARM\mbed_config.h \
- C:\Users\ryoga\Documents\GitHub\MoveProject\mbed-os\features/unsupported\tests\mbed\env\test_env.h \
- mbed-os/mbed.h mbed-os/rtos/rtos.h \
- mbed-os/rtos/TARGET_CORTEX/mbed_rtos_storage.h \
+BUILD\NUCLEO_F446RE\GCC_ARM\Libraries\MPU6050\MPU6050.o: \
+ Libraries\MPU6050\MPU6050.cpp BUILD\NUCLEO_F446RE\GCC_ARM\mbed_config.h \
+ Libraries\MPU6050\Arduino.h Libraries\MPU6050\MPU6050.hpp mbed-os/mbed.h \
+ mbed-os/rtos/rtos.h mbed-os/rtos/TARGET_CORTEX/mbed_rtos_storage.h \
  mbed-os/rtos/TARGET_CORTEX/rtx5/RTX/Source/rtx_lib.h \
  mbed-os/rtos/TARGET_CORTEX/rtx5/RTX/Source/rtx_core_c.h \
  mbed-os/targets/TARGET_STM/TARGET_STM32F4/TARGET_STM32F446xE/device/cmsis.h \

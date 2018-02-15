@@ -1,7 +1,5 @@
-BUILD\NUCLEO_F446RE\GCC_ARM\test_env.o: \
- C:\Users\ryoga\Documents\GitHub\MoveProject\mbed-os\features/unsupported\tests\mbed\env\test_env.cpp \
- BUILD\NUCLEO_F446RE\GCC_ARM\mbed_config.h \
- C:\Users\ryoga\Documents\GitHub\MoveProject\mbed-os\features/unsupported\tests\mbed\env\test_env.h \
+BUILD\NUCLEO_F446RE\GCC_ARM\Libraries\SBUS\SBUS.o: \
+ Libraries\SBUS\SBUS.cpp BUILD\NUCLEO_F446RE\GCC_ARM\mbed_config.h \
  mbed-os/mbed.h mbed-os/rtos/rtos.h \
  mbed-os/rtos/TARGET_CORTEX/mbed_rtos_storage.h \
  mbed-os/rtos/TARGET_CORTEX/rtx5/RTX/Source/rtx_lib.h \
@@ -192,4 +190,5 @@ BUILD\NUCLEO_F446RE\GCC_ARM\test_env.o: \
  mbed-os/platform/ATCmdParser.h mbed-os/platform/FileSystemHandle.h \
  mbed-os/platform/FileHandle.h mbed-os/platform/DirHandle.h \
  mbed-os/platform/CriticalSectionLock.h mbed-os/platform/DeepSleepLock.h \
- mbed-os/platform/Callback.h mbed-os/platform/FunctionPointer.h
+ mbed-os/platform/Callback.h mbed-os/platform/FunctionPointer.h \
+ Libraries\SBUS\SBUS.hpp
