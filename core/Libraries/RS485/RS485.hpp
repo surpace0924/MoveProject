@@ -4,16 +4,21 @@
 #include "mbed.h"
  
 #define start_signal    0b11111111
-#define wait_time       0.0005
- 
+#define wait_time       0.0007
+#define STX 255
+
 class RS485
 {
 public :
+    int useDeviceNum;
+    int data[31][100];
+    int length[31];
+    uint8_t id;
     RS485(PinName mbed_tx, PinName mbed_rx);
  
     void begin(int baudrate);
  
-    void put(short id, float m1_duty, float m2_duty);
+    void put(int id, int _data[], int _size);
  
 private :
     Serial Port;
@@ -21,7 +26,7 @@ private :
  
     short flag;
     int counter;
-    int m1_data,m2_data,check_sum;
+    int m1_data,m2_data,checkSum;
     int ID;
  
     void put_time();

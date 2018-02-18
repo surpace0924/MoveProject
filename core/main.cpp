@@ -4,18 +4,20 @@
 #include "Libraries/SBUS/SBUS.hpp"
 #include "Libraries/MPU6050/MPU6050.hpp"
 #include "Libraries/Mecanum/Mecanum.hpp"
+// #include "Libraries/RS485/RS485.hpp"
 
 DigitalOut led1(LED1);
-MPU6050 mpu(PB_9, PB_8);
-SBUS propo(PC_10, PC_11);
-Serial xbee(PC_12, PD_2);
+MPU6050 mpu(PB_9, PB_8);  // I2C1
+SBUS propo(PC_10, PC_11); // Serial3
+//RS485 rs485(PC_6, PC_7);    // Serial6
+
+Serial xbee(PC_12, PD_2); // Serial5
 Serial pc(USBTX, USBRX);
 
 Timer deltaTimer;
-Ticker debugOutputTimer;
+void debug();
 
 void calculateRobotAngle(double gyroZ);
-void debug();
 
 namespace robotAngle
 {
@@ -27,9 +29,11 @@ int main()
 {
     xbee.baud(baud::XBEE);
 
+    propo.begin();
+
     deltaTimer.start();
 
-    debugOutputTimer.attach(&debug, cycle::DEBUG_OUTPUT);
+    // rs485.begin(baud::RS485);
 
     led1 = 0;
 
@@ -42,11 +46,14 @@ int main()
 
         calculateRobotAngle(gyro[2]);
 
-        if (abs(propo.getStickVal(2)) > 10)
-        {
-            robotAngle::target = robotAngle::now;
-        }
+        // if (abs(propo.getStickVal(2)) > 10)
+        // {
+        //     robotAngle::target = robotAngle::now;
+        // }
 
+        int aaa[2] = {5, 3};
+        // rs485.put(1, aaa, 2);
+        debug();
         led1 = !led1;
         wait(cycle::LOOP);
     }
@@ -54,10 +61,13 @@ int main()
 
 void debug()
 {
-    if (propo.failSafe == true)
+    if (propo.isFailsafe() == true)
         xbee.printf("[NG]\t");
     else
         xbee.printf("[OK]\t");
+
+    for (int i = 0; i < 3; i++)
+        xbee.printf("%d\t", propo.getStickVal(i));
 
     xbee.printf("%.3lf", robotAngle::now);
 

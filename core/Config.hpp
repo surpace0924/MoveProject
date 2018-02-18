@@ -9,5 +9,6 @@ const double LOOP = 0.010;
 namespace baud
 {
 const int XBEE = 57600;
+const int RS485 = 57600;
 }
 #endif

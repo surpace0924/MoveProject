@@ -1,25 +1,9 @@
 [
     {
-        "module": "Libraries\\MPU6050", 
-        "size": {
-            ".data": 0, 
-            ".bss": 0, 
-            ".text": 942
-        }
-    }, 
-    {
-        "module": "Libraries\\SBUS", 
-        "size": {
-            ".data": 0, 
-            ".bss": 25, 
-            ".text": 612
-        }
-    }, 
-    {
         "module": "[fill]", 
         "size": {
             ".data": 0, 
-            ".bss": 22, 
+            ".bss": 11, 
             ".text": 123
         }
     }, 
@@ -56,11 +40,19 @@
         }
     }, 
     {
-        "module": "main.o", 
+        "module": "core\\Libraries", 
+        "size": {
+            ".data": 0, 
+            ".bss": 0, 
+            ".text": 1432
+        }
+    }, 
+    {
+        "module": "core\\main.o", 
         "size": {
             ".data": 4, 
-            ".bss": 1176, 
-            ".text": 1157
+            ".bss": 1180, 
+            ".text": 964
         }
     }, 
     {
@@ -68,7 +60,7 @@
         "size": {
             ".data": 4, 
             ".bss": 144, 
-            ".text": 2465
+            ".text": 2421
         }
     }, 
     {
@@ -76,7 +68,7 @@
         "size": {
             ".data": 4, 
             ".bss": 66, 
-            ".text": 1559
+            ".text": 1560
         }
     }, 
     {
@@ -84,7 +76,7 @@
         "size": {
             ".data": 4, 
             ".bss": 354, 
-            ".text": 3025
+            ".text": 3026
         }
     }, 
     {
@@ -92,7 +84,7 @@
         "size": {
             ".data": 168, 
             ".bss": 5989, 
-            ".text": 9061
+            ".text": 9062
         }
     }, 
     {
@@ -100,13 +92,13 @@
         "size": {
             ".data": 4, 
             ".bss": 624, 
-            ".text": 14792
+            ".text": 14668
         }
     }, 
     {
         "summary": {
-            "static_ram": 10892, 
-            "total_flash": 67334
+            "static_ram": 10860, 
+            "total_flash": 66854
         }
     }
 ]

@@ -1,14 +1,5 @@
 /***************
 Arduino.hと自作マクロの融合 
-
-RS422 name(tx, rx)
-tx : mbed_tx
-rx : mbed_rx
- 
-put(int id, float m1_duty, float m2_duty)
-id   : NucleoのID 0~31
-duty : モータにかけるPWMのDuty -1.0~1.0
- 
 ****************/
 #ifndef _MACRO_H_
 #define _MACRO_H_
@@ -63,6 +54,7 @@ From_Arduino.h
 #define bitClear(value, bit) ((value) &= ~(1UL << (bit)))
 #define bitWrite(value, bit, bitvalue) (bitvalue ? bitSet(value, bit) : bitClear(value, bit))
 
+long map(long x, long in_min, long in_max, long out_min, long out_max);
 
 /*********
 My library

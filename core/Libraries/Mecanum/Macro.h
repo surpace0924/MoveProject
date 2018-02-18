@@ -63,6 +63,7 @@ From_Arduino.h
 #define bitClear(value, bit) ((value) &= ~(1UL << (bit)))
 #define bitWrite(value, bit, bitvalue) (bitvalue ? bitSet(value, bit) : bitClear(value, bit))
 
+long map(long, long, long, long, long);
 
 /*********
 My library
