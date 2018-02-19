@@ -205,4 +205,5 @@
  ..\core\Libraries/MPU6050/MPU6050.hpp \
  ..\core\Libraries/MPU6050/Arduino.h \
  ..\core\Libraries/Mecanum/Mecanum.hpp \
- ../core/Libraries/MPU6050/Arduino.h ..\core\Libraries/Mecanum/Macro.h
+ ../core/Libraries/MPU6050/Arduino.h ..\core\Libraries/Mecanum/Macro.h \
+ ..\core\Libraries/RS485/RS485.hpp

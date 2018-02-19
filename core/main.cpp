@@ -4,12 +4,12 @@
 #include "Libraries/SBUS/SBUS.hpp"
 #include "Libraries/MPU6050/MPU6050.hpp"
 #include "Libraries/Mecanum/Mecanum.hpp"
-// #include "Libraries/RS485/RS485.hpp"
+#include "Libraries/RS485/RS485.hpp"
 
 DigitalOut led1(LED1);
 MPU6050 mpu(PB_9, PB_8);  // I2C1
 SBUS propo(PC_10, PC_11); // Serial3
-//RS485 rs485(PC_6, PC_7);    // Serial6
+RS485 rs485(PC_6, PC_7);  // Serial6
 
 Serial xbee(PC_12, PD_2); // Serial5
 Serial pc(USBTX, USBRX);
@@ -33,7 +33,7 @@ int main()
 
     deltaTimer.start();
 
-    // rs485.begin(baud::RS485);
+    rs485.begin(baud::RS485);
 
     led1 = 0;
 
@@ -51,8 +51,12 @@ int main()
         //     robotAngle::target = robotAngle::now;
         // }
 
-        int aaa[2] = {5, 3};
-        // rs485.put(1, aaa, 2);
+        int aaa[4] = {-455, -323, -1, 515};
+        rs485.put(1, aaa, 4);
+        for (int i = 0; i < 4; i++)
+            xbee.printf("%d\t", rs485.data[1][i]);
+        rs485.put_time(1);
+
         debug();
         led1 = !led1;
         wait(cycle::LOOP);
