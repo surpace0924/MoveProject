@@ -7,10 +7,9 @@ RS485::RS485(PinName mbed_tx, PinName mbed_rx) : Port(mbed_tx, mbed_rx)
 void RS485::begin(int baudrate)
 {
     Port.baud(baudrate);
-    // timer.attach(this, &RS485::put_time, wait_time);
 }
 
-void RS485::put(int id, int _data[], int _size)
+void RS485::set(int id, int _data[], int _size)
 {
 
     length[id] = _size * 2;
@@ -23,7 +22,7 @@ void RS485::put(int id, int _data[], int _size)
     }
 }
 
-void RS485::put_time(int targetId)
+void RS485::send(int targetId)
 {
     checkSum = 0;
 

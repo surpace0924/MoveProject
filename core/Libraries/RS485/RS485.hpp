@@ -16,11 +16,10 @@ class RS485
     uint8_t id;
     RS485(PinName mbed_tx, PinName mbed_rx);
 
+    // function
     void begin(int baudrate);
-
-    void put(int id, int _data[], int _size);
-
-    void put_time(int targetId);
+    void set(int id, int _data[], int _size);
+    void send(int targetId);
 
   private:
     RawSerial Port;
@@ -30,7 +29,6 @@ class RS485
     int counter;
     int m1_data, m2_data, checkSum;
     int ID;
-
 };
 
 #endif
