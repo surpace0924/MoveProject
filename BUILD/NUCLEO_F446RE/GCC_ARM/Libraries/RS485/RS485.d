@@ -1,6 +1,7 @@
-BUILD\NUCLEO_F446RE\GCC_ARM\main.o: main.cpp \
- BUILD\NUCLEO_F446RE\GCC_ARM\mbed_config.h mbed-os/mbed.h \
- mbed-os/rtos/rtos.h mbed-os/rtos/TARGET_CORTEX/mbed_rtos_storage.h \
+BUILD\NUCLEO_F446RE\GCC_ARM\Libraries\RS485\RS485.o: \
+ Libraries\RS485\RS485.cpp BUILD\NUCLEO_F446RE\GCC_ARM\mbed_config.h \
+ Libraries\RS485\RS485.hpp mbed-os/mbed.h mbed-os/rtos/rtos.h \
+ mbed-os/rtos/TARGET_CORTEX/mbed_rtos_storage.h \
  mbed-os/rtos/TARGET_CORTEX/rtx5/RTX/Source/rtx_lib.h \
  mbed-os/rtos/TARGET_CORTEX/rtx5/RTX/Source/rtx_core_c.h \
  mbed-os/targets/TARGET_STM/TARGET_STM32F4/TARGET_STM32F446xE/device/cmsis.h \
@@ -189,7 +190,4 @@ BUILD\NUCLEO_F446RE\GCC_ARM\main.o: main.cpp \
  mbed-os/platform/ATCmdParser.h mbed-os/platform/FileSystemHandle.h \
  mbed-os/platform/FileHandle.h mbed-os/platform/DirHandle.h \
  mbed-os/platform/CriticalSectionLock.h mbed-os/platform/DeepSleepLock.h \
- mbed-os/platform/Callback.h mbed-os/platform/FunctionPointer.h \
- Config.hpp Macro.h Libraries/SBUS/SBUS.hpp Libraries/MPU6050/MPU6050.hpp \
- Libraries/MPU6050/Arduino.h Libraries/Mecanum/Mecanum.hpp \
- Libraries/MPU6050/Arduino.h Libraries/Mecanum/Macro.h
+ mbed-os/platform/Callback.h mbed-os/platform/FunctionPointer.h

@@ -1,5 +1,6 @@
-BUILD\NUCLEO_F446RE\GCC_ARM\main.o: main.cpp \
- BUILD\NUCLEO_F446RE\GCC_ARM\mbed_config.h mbed-os/mbed.h \
+BUILD\NUCLEO_F446RE\GCC_ARM\Libraries\MPU6050\MPU6050.o: \
+ Libraries\MPU6050\MPU6050.cpp BUILD\NUCLEO_F446RE\GCC_ARM\mbed_config.h \
+ Libraries\MPU6050\Arduino.h Libraries\MPU6050\MPU6050.hpp mbed-os/mbed.h \
  mbed-os/rtos/rtos.h mbed-os/rtos/TARGET_CORTEX/mbed_rtos_storage.h \
  mbed-os/rtos/TARGET_CORTEX/rtx5/RTX/Source/rtx_lib.h \
  mbed-os/rtos/TARGET_CORTEX/rtx5/RTX/Source/rtx_core_c.h \
@@ -189,7 +190,4 @@ BUILD\NUCLEO_F446RE\GCC_ARM\main.o: main.cpp \
  mbed-os/platform/ATCmdParser.h mbed-os/platform/FileSystemHandle.h \
  mbed-os/platform/FileHandle.h mbed-os/platform/DirHandle.h \
  mbed-os/platform/CriticalSectionLock.h mbed-os/platform/DeepSleepLock.h \
- mbed-os/platform/Callback.h mbed-os/platform/FunctionPointer.h \
- Config.hpp Macro.h Libraries/SBUS/SBUS.hpp Libraries/MPU6050/MPU6050.hpp \
- Libraries/MPU6050/Arduino.h Libraries/Mecanum/Mecanum.hpp \
- Libraries/MPU6050/Arduino.h Libraries/Mecanum/Macro.h
+ mbed-os/platform/Callback.h mbed-os/platform/FunctionPointer.h
