@@ -13,7 +13,7 @@ RawSerial xbee(PC_12, PD_2); // Serial5
 
 MPU6050 mpu(PB_9, PB_8);  // I2C1
 SBUS propo(PC_10, PC_11); // Serial3
-RS485 rs485(PC_6, PC_7);  // Serial6
+RS485 rs485(PA_9, PA_10); // Serial1
 
 Mecanum mecanum;
 
@@ -53,17 +53,38 @@ int main()
         mpu.getGyro(gyro);
         calculateYawAngle(gyro[2]);
 
-        // if (abs(propo.getStickVal(2)) > 10)
-        // {
-        //     yawAngle::target = yawAngle::now;
-        // }
-
         for (int i = 0; i < 3; i++)
-            velocity::body[i] = propo.getStickVal(i);
-        mecanum.calculate(velocity::body, 254, velocity::wheel);
+            velocity::body[i] = (abs(propo.getStickVal(i)) > 4) ? propo.getStickVal(i) / 2.5 : 0;
 
-        rs485.set(1, velocity::wheel, ARRAY_SIZE(velocity::wheel));
+        if (abs(propo.getStickVal(2)) > 4)
+        {
+            yawAngle::target = yawAngle::now;
+        }
+
+        if ((yawAngle::target - yawAngle::now) > 180)
+        {
+            velocity::body[2] += 1.2 * (((yawAngle::target - 360) - yawAngle::now));
+        }
+        else if ((yawAngle::target - yawAngle::now) < -180)
+        {
+            velocity::body[2] += 1.2 * ((yawAngle::target - (yawAngle::now - 360)));
+        }
+        else
+        {
+            velocity::body[2] += 1.2 * (yawAngle::target - yawAngle::now);
+        }
+
+        mecanum.calculate(velocity::body, 254, yawAngle::target, velocity::wheel);
+
+        int motorTermOutput[2][2] = {
+            {velocity::wheel[0], velocity::wheel[1]},
+            {velocity::wheel[2], velocity::wheel[3]}};
+
+        rs485.set(1, motorTermOutput[0], 2);
         rs485.send(1);
+
+        rs485.set(2, motorTermOutput[1], 2);
+        rs485.send(2);
 
         debug();
         led1 = !led1;
@@ -82,6 +103,7 @@ void debug()
         xbee.printf("%d\t", velocity::body[i]);
 
     xbee.printf("%.3lf\t", yawAngle::now);
+    // xbee.printf("%.3lf\t", yawAngle::target);
 
     for (int i = 0; i < 4; i++)
         xbee.printf("%d\t", velocity::wheel[i]);
