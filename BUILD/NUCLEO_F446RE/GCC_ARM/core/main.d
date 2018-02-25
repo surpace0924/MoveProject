@@ -200,10 +200,8 @@
  ../mbed-os/platform/DirHandle.h \
  ../mbed-os/platform/CriticalSectionLock.h \
  ../mbed-os/platform/DeepSleepLock.h ../mbed-os/platform/Callback.h \
- ../mbed-os/platform/FunctionPointer.h ..\core\Config.hpp ..\core\Macro.h \
+ ../mbed-os/platform/FunctionPointer.h ..\core\Config.hpp \
  ..\core\Libraries/SBUS/SBUS.hpp ..\core\Libraries/SBUS/Macro.h \
- ..\core\Libraries/MPU6050/MPU6050.hpp \
- ..\core\Libraries/MPU6050/Arduino.h \
- ..\core\Libraries/Mecanum/Mecanum.hpp \
- ../core/Libraries/MPU6050/Arduino.h ..\core\Libraries/Mecanum/Macro.h \
- ..\core\Libraries/RS485/RS485.hpp
+ ../core/Libraries/../Macro.h ..\core\Libraries/MPU6050/MPU6050.hpp \
+ ..\core\Libraries/MPU6050/Macro.h ..\core\Libraries/Mecanum/Mecanum.hpp \
+ ..\core\Libraries/Mecanum/Macro.h ..\core\Libraries/RS485/RS485.hpp

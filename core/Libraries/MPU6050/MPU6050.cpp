@@ -1,4 +1,3 @@
-#include "Arduino.h"
 #include "MPU6050.hpp"
 
 MPU6050::MPU6050(PinName sda, PinName scl) : connection(sda, scl)

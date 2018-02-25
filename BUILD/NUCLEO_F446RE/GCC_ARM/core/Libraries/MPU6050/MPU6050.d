@@ -1,7 +1,6 @@
 ..\BUILD\NUCLEO_F446RE\GCC_ARM\core\Libraries\MPU6050\MPU6050.o: \
  ..\core\Libraries\MPU6050\MPU6050.cpp \
  ..\BUILD\NUCLEO_F446RE\GCC_ARM\mbed_config.h \
- ..\core\Libraries\MPU6050\Arduino.h \
  ..\core\Libraries\MPU6050\MPU6050.hpp ../mbed-os/mbed.h \
  ../mbed-os/rtos/rtos.h ../mbed-os/rtos/TARGET_CORTEX/mbed_rtos_storage.h \
  ../mbed-os/rtos/TARGET_CORTEX/rtx5/RTX/Source/rtx_lib.h \
@@ -203,4 +202,5 @@
  ../mbed-os/platform/DirHandle.h \
  ../mbed-os/platform/CriticalSectionLock.h \
  ../mbed-os/platform/DeepSleepLock.h ../mbed-os/platform/Callback.h \
- ../mbed-os/platform/FunctionPointer.h
+ ../mbed-os/platform/FunctionPointer.h ..\core\Libraries\MPU6050\Macro.h \
+ ../core/Libraries/../Macro.h
