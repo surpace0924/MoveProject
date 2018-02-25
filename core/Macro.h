@@ -50,9 +50,16 @@ From_Arduino.h
 #define bitClear(value, bit) ((value) &= ~(1UL << (bit)))
 #define bitWrite(value, bit, bitvalue) (bitvalue ? bitSet(value, bit) : bitClear(value, bit))
 
+long map(long x, long in_min, long in_max, long out_min, long out_max);
+
+
 /*********
 My library
 *********/
 #define ARRAY_SIZE(ary) (sizeof(ary) / sizeof((ary)[0]))
+
+#define radiuses hypot
+#define angles(x,y) ((atan2(y,x)<0)?(degrees(atan2(y,x)+2*M_PI)):(degrees(atan2(y,x))))
+
 #endif
 
