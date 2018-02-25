@@ -326,28 +326,12 @@ Discarded input sections
  .bss           0x00000000        0x0 ../BUILD/NUCLEO_F446RE/GCC_ARM/core/Libraries/MPU6050/MPU6050.o
  .text._ZN7MPU60507getTempEv
                 0x00000000       0x44 ../BUILD/NUCLEO_F446RE/GCC_ARM/core/Libraries/MPU6050/MPU6050.o
- .text          0x00000000        0x0 ../BUILD/NUCLEO_F446RE/GCC_ARM/core/Libraries/Mecanum/Macro.o
- .data          0x00000000        0x0 ../BUILD/NUCLEO_F446RE/GCC_ARM/core/Libraries/Mecanum/Macro.o
- .bss           0x00000000        0x0 ../BUILD/NUCLEO_F446RE/GCC_ARM/core/Libraries/Mecanum/Macro.o
- .debug_line    0x00000000        0x0 ../BUILD/NUCLEO_F446RE/GCC_ARM/core/Libraries/Mecanum/Macro.o
- .debug_str     0x00000000      0x195 ../BUILD/NUCLEO_F446RE/GCC_ARM/core/Libraries/Mecanum/Macro.o
- .comment       0x00000000       0x71 ../BUILD/NUCLEO_F446RE/GCC_ARM/core/Libraries/Mecanum/Macro.o
- .ARM.attributes
-                0x00000000       0x37 ../BUILD/NUCLEO_F446RE/GCC_ARM/core/Libraries/Mecanum/Macro.o
  .text          0x00000000        0x0 ../BUILD/NUCLEO_F446RE/GCC_ARM/core/Libraries/Mecanum/Mecanum.o
  .data          0x00000000        0x0 ../BUILD/NUCLEO_F446RE/GCC_ARM/core/Libraries/Mecanum/Mecanum.o
  .bss           0x00000000        0x0 ../BUILD/NUCLEO_F446RE/GCC_ARM/core/Libraries/Mecanum/Mecanum.o
  .text          0x00000000        0x0 ../BUILD/NUCLEO_F446RE/GCC_ARM/core/Libraries/RS485/RS485.o
  .data          0x00000000        0x0 ../BUILD/NUCLEO_F446RE/GCC_ARM/core/Libraries/RS485/RS485.o
  .bss           0x00000000        0x0 ../BUILD/NUCLEO_F446RE/GCC_ARM/core/Libraries/RS485/RS485.o
- .text          0x00000000        0x0 ../BUILD/NUCLEO_F446RE/GCC_ARM/core/Libraries/SBUS/Macro.o
- .data          0x00000000        0x0 ../BUILD/NUCLEO_F446RE/GCC_ARM/core/Libraries/SBUS/Macro.o
- .bss           0x00000000        0x0 ../BUILD/NUCLEO_F446RE/GCC_ARM/core/Libraries/SBUS/Macro.o
- .debug_line    0x00000000        0x0 ../BUILD/NUCLEO_F446RE/GCC_ARM/core/Libraries/SBUS/Macro.o
- .debug_str     0x00000000      0x192 ../BUILD/NUCLEO_F446RE/GCC_ARM/core/Libraries/SBUS/Macro.o
- .comment       0x00000000       0x71 ../BUILD/NUCLEO_F446RE/GCC_ARM/core/Libraries/SBUS/Macro.o
- .ARM.attributes
-                0x00000000       0x37 ../BUILD/NUCLEO_F446RE/GCC_ARM/core/Libraries/SBUS/Macro.o
  .group         0x00000000        0x8 ../BUILD/NUCLEO_F446RE/GCC_ARM/core/Libraries/SBUS/SBUS.o
  .group         0x00000000        0x8 ../BUILD/NUCLEO_F446RE/GCC_ARM/core/Libraries/SBUS/SBUS.o
  .group         0x00000000        0x8 ../BUILD/NUCLEO_F446RE/GCC_ARM/core/Libraries/SBUS/SBUS.o
@@ -359,22 +343,6 @@ Discarded input sections
  .bss           0x00000000        0x0 ../BUILD/NUCLEO_F446RE/GCC_ARM/core/Libraries/SBUS/SBUS.o
  .text._ZN4SBUS12getSwitchValEi
                 0x00000000       0x1a ../BUILD/NUCLEO_F446RE/GCC_ARM/core/Libraries/SBUS/SBUS.o
- .text          0x00000000        0x0 ../BUILD/NUCLEO_F446RE/GCC_ARM/core/Macro.o
- .data          0x00000000        0x0 ../BUILD/NUCLEO_F446RE/GCC_ARM/core/Macro.o
- .bss           0x00000000        0x0 ../BUILD/NUCLEO_F446RE/GCC_ARM/core/Macro.o
- .text._Z3maplllll
-                0x00000000       0x14 ../BUILD/NUCLEO_F446RE/GCC_ARM/core/Macro.o
- .debug_info    0x00000000       0x37 ../BUILD/NUCLEO_F446RE/GCC_ARM/core/Macro.o
- .debug_abbrev  0x00000000       0x2a ../BUILD/NUCLEO_F446RE/GCC_ARM/core/Macro.o
- .debug_aranges
-                0x00000000       0x20 ../BUILD/NUCLEO_F446RE/GCC_ARM/core/Macro.o
- .debug_ranges  0x00000000       0x10 ../BUILD/NUCLEO_F446RE/GCC_ARM/core/Macro.o
- .debug_line    0x00000000       0x41 ../BUILD/NUCLEO_F446RE/GCC_ARM/core/Macro.o
- .debug_str     0x00000000      0x183 ../BUILD/NUCLEO_F446RE/GCC_ARM/core/Macro.o
- .comment       0x00000000       0x71 ../BUILD/NUCLEO_F446RE/GCC_ARM/core/Macro.o
- .debug_frame   0x00000000       0x28 ../BUILD/NUCLEO_F446RE/GCC_ARM/core/Macro.o
- .ARM.attributes
-                0x00000000       0x37 ../BUILD/NUCLEO_F446RE/GCC_ARM/core/Macro.o
  .group         0x00000000        0xc ../BUILD/NUCLEO_F446RE/GCC_ARM/core/main.o
  .group         0x00000000        0x8 ../BUILD/NUCLEO_F446RE/GCC_ARM/core/main.o
  .group         0x00000000        0xc ../BUILD/NUCLEO_F446RE/GCC_ARM/core/main.o
@@ -12324,12 +12292,9 @@ LOAD c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm
 LOAD c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/softfp/crtbegin.o
 LOAD c:/program files (x86)/gnu tools arm embedded/4.9 2015q3/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp/crt0.o
 LOAD ../BUILD/NUCLEO_F446RE/GCC_ARM/core/Libraries/MPU6050/MPU6050.o
-LOAD ../BUILD/NUCLEO_F446RE/GCC_ARM/core/Libraries/Mecanum/Macro.o
 LOAD ../BUILD/NUCLEO_F446RE/GCC_ARM/core/Libraries/Mecanum/Mecanum.o
 LOAD ../BUILD/NUCLEO_F446RE/GCC_ARM/core/Libraries/RS485/RS485.o
-LOAD ../BUILD/NUCLEO_F446RE/GCC_ARM/core/Libraries/SBUS/Macro.o
 LOAD ../BUILD/NUCLEO_F446RE/GCC_ARM/core/Libraries/SBUS/SBUS.o
-LOAD ../BUILD/NUCLEO_F446RE/GCC_ARM/core/Macro.o
 LOAD ../BUILD/NUCLEO_F446RE/GCC_ARM/core/main.o
 LOAD ../BUILD/NUCLEO_F446RE/GCC_ARM/mbed-os/drivers/AnalogIn.o
 LOAD ../BUILD/NUCLEO_F446RE/GCC_ARM/mbed-os/drivers/BusIn.o

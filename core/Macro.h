@@ -1,9 +1,5 @@
-/***************
-Arduino.hと自作マクロの融合 
-****************/
 #ifndef _MACRO_H_
 #define _MACRO_H_
-
 
 /*************
 From_Arduino.h
@@ -53,8 +49,6 @@ From_Arduino.h
 #define bitSet(value, bit) ((value) |= (1UL << (bit)))
 #define bitClear(value, bit) ((value) &= ~(1UL << (bit)))
 #define bitWrite(value, bit, bitvalue) (bitvalue ? bitSet(value, bit) : bitClear(value, bit))
-
-long map(long x, long in_min, long in_max, long out_min, long out_max);
 
 /*********
 My library

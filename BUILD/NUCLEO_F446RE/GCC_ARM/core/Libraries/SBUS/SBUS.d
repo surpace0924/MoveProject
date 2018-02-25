@@ -202,4 +202,4 @@
  ../mbed-os/platform/CriticalSectionLock.h \
  ../mbed-os/platform/DeepSleepLock.h ../mbed-os/platform/Callback.h \
  ../mbed-os/platform/FunctionPointer.h ..\core\Libraries\SBUS\SBUS.hpp \
- ..\core\Libraries\SBUS\Macro.h
+ ..\core\Libraries\SBUS\Macro.h ../core/Libraries/../Macro.h
