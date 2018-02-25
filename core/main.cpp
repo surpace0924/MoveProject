@@ -1,6 +1,6 @@
 #include <mbed.h>
 #include "Config.hpp"
-// #include "Macro.h"
+#include "Macro.h"
 #include "Libraries/SBUS/SBUS.hpp"
 #include "Libraries/MPU6050/MPU6050.hpp"
 #include "Libraries/Mecanum/Mecanum.hpp"

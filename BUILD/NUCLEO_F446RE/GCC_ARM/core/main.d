@@ -200,7 +200,7 @@
  ../mbed-os/platform/DirHandle.h \
  ../mbed-os/platform/CriticalSectionLock.h \
  ../mbed-os/platform/DeepSleepLock.h ../mbed-os/platform/Callback.h \
- ../mbed-os/platform/FunctionPointer.h ..\core\Config.hpp \
+ ../mbed-os/platform/FunctionPointer.h ..\core\Config.hpp ..\core\Macro.h \
  ..\core\Libraries/SBUS/SBUS.hpp ..\core\Libraries/SBUS/Macro.h \
  ../core/Libraries/../Macro.h ..\core\Libraries/MPU6050/MPU6050.hpp \
  ..\core\Libraries/MPU6050/Macro.h ..\core\Libraries/Mecanum/Mecanum.hpp \
