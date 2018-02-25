@@ -4,6 +4,7 @@
 #include "Libraries/SBUS/SBUS.hpp"
 #include "Libraries/MPU6050/MPU6050.hpp"
 #include "Libraries/Mecanum/Mecanum.hpp"
+#include "Libraries/Steering/Steering.hpp"
 #include "Libraries/RS485/RS485.hpp"
 
 DigitalOut led1(LED1);
@@ -16,6 +17,7 @@ SBUS propo(PC_10, PC_11); // Serial3
 RS485 rs485(PA_9, PA_10); // Serial1
 
 Mecanum mecanum;
+Steering steer;
 
 Timer deltaTimer;
 
@@ -33,6 +35,8 @@ namespace velocity
 int body[3] = {0};
 int wheel[4] = {0};
 }
+
+int arg[4] = {0};
 
 int main()
 {
@@ -75,6 +79,7 @@ int main()
         }
 
         mecanum.calculate(velocity::body, 254, yawAngle::target, velocity::wheel);
+        steer.calculate(velocity::body, 254, yawAngle::target, velocity::wheel, arg);
 
         int motorTermOutput[2][2] = {
             {velocity::wheel[0], velocity::wheel[1]},
@@ -106,7 +111,10 @@ void debug()
     // xbee.printf("%.3lf\t", yawAngle::target);
 
     for (int i = 0; i < 4; i++)
+    {
+        xbee.printf("%d\t", arg[i]);
         xbee.printf("%d\t", velocity::wheel[i]);
+    }
 
     xbee.printf("\n");
 }
