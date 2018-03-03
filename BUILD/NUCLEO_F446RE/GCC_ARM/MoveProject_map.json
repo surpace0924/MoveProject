@@ -3,8 +3,8 @@
         "module": "[fill]", 
         "size": {
             ".data": 7, 
-            ".bss": 26, 
-            ".text": 124
+            ".bss": 21, 
+            ".text": 138
         }
     }, 
     {
@@ -12,7 +12,7 @@
         "size": {
             ".data": 2204, 
             ".bss": 56, 
-            ".text": 24354
+            ".text": 27114
         }
     }, 
     {
@@ -44,7 +44,7 @@
         "size": {
             ".data": 0, 
             ".bss": 0, 
-            ".text": 2802
+            ".text": 3266
         }
     }, 
     {
@@ -59,8 +59,8 @@
         "module": "core\\main.o", 
         "size": {
             ".data": 4, 
-            ".bss": 1113, 
-            ".text": 1513
+            ".bss": 1634, 
+            ".text": 2633
         }
     }, 
     {
@@ -68,7 +68,7 @@
         "size": {
             ".data": 4, 
             ".bss": 144, 
-            ".text": 2265
+            ".text": 2417
         }
     }, 
     {
@@ -83,8 +83,8 @@
         "module": "mbed-os\\platform", 
         "size": {
             ".data": 4, 
-            ".bss": 270, 
-            ".text": 1646
+            ".bss": 354, 
+            ".text": 3026
         }
     }, 
     {
@@ -92,7 +92,7 @@
         "size": {
             ".data": 168, 
             ".bss": 5989, 
-            ".text": 8784
+            ".text": 9062
         }
     }, 
     {
@@ -105,8 +105,8 @@
     }, 
     {
         "summary": {
-            "static_ram": 10732, 
-            "total_flash": 72198
+            "static_ram": 11332, 
+            "total_flash": 78366
         }
     }
 ]
