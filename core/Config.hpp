@@ -27,7 +27,7 @@ const int RS485 = 57600;
 namespace angleGain
 {
 const double GYRO_P = 2.5;
-const double SONIC_P = 1.0;
+const double SONIC_P = 1.5;
 }
 
 namespace length

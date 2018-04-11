@@ -14,8 +14,8 @@ DigitalOut ledR(PC_1);
 DigitalOut ledG(PC_0);
 DigitalOut ledB(PB_0);
 
-Serial xbee(PC_12, PD_2); // Serial5
-// RawSerial xbee(USBTX, USBRX);
+// Serial xbee(PC_12, PD_2); // Serial5
+RawSerial xbee(USBTX, USBRX);
 
 MPU6050 mpu(PB_9, PB_8);  // I2C1
 SBUS propo(PC_10, PC_11); // Serial3
@@ -72,7 +72,7 @@ int main()
     sensor.begin();
 
     port1.baud(baud::RS485);
-    // rs485.begin(baud::RS485);
+    rs485.begin(baud::RS485);
 
     deltaTimer.start();
 
@@ -121,7 +121,7 @@ int main()
             yawAngle::target = 0;
             if (availableSensor)
             {
-                int gain = 0.2 * (800 - distance::toFence);
+                int gain = 0.25 * (800 - distance::toFence);
                 gain = constrain(gain, -50, 50);
                 velocity::body[0] += (abs(gain) > 5) ? gain : 0;
 
