@@ -1,4 +1,5 @@
-..\BUILD\NUCLEO_F446RE\GCC_ARM\core\main.o: ..\core\main.cpp \
+..\BUILD\NUCLEO_F446RE\GCC_ARM\core\Libraries\Sensor\Sensor.o: \
+ ..\core\Libraries\Sensor\Sensor.cpp \
  ..\BUILD\NUCLEO_F446RE\GCC_ARM\mbed_config.h ../mbed-os/mbed.h \
  ../mbed-os/rtos/rtos.h ../mbed-os/rtos/TARGET_CORTEX/mbed_rtos_storage.h \
  ../mbed-os/rtos/TARGET_CORTEX/rtx5/RTX/Source/rtx_lib.h \
@@ -200,4 +201,6 @@
  ../mbed-os/platform/DirHandle.h \
  ../mbed-os/platform/CriticalSectionLock.h \
  ../mbed-os/platform/DeepSleepLock.h ../mbed-os/platform/Callback.h \
- ../mbed-os/platform/FunctionPointer.h
+ ../mbed-os/platform/FunctionPointer.h \
+ ..\core\Libraries\Sensor\Sensor.hpp ..\core\Libraries\Sensor\Macro.h \
+ ../core/Libraries/../Macro.h
