@@ -4,7 +4,7 @@
         "size": {
             ".data": 8, 
             ".bss": 36, 
-            ".text": 108
+            ".text": 126
         }
     }, 
     {
@@ -12,7 +12,7 @@
         "size": {
             ".data": 2204, 
             ".bss": 56, 
-            ".text": 24354
+            ".text": 27114
         }
     }, 
     {
@@ -20,7 +20,7 @@
         "size": {
             ".data": 0, 
             ".bss": 0, 
-            ".text": 3752
+            ".text": 3912
         }
     }, 
     {
@@ -42,17 +42,17 @@
     {
         "module": "core\\Libraries", 
         "size": {
-            ".data": 100, 
-            ".bss": 188, 
-            ".text": 2030
+            ".data": 96, 
+            ".bss": 60, 
+            ".text": 2234
         }
     }, 
     {
         "module": "core\\main.o", 
         "size": {
             ".data": 4, 
-            ".bss": 1275, 
-            ".text": 1983
+            ".bss": 1219, 
+            ".text": 2746
         }
     }, 
     {
@@ -60,7 +60,7 @@
         "size": {
             ".data": 4, 
             ".bss": 144, 
-            ".text": 1965
+            ".text": 2099
         }
     }, 
     {
@@ -68,15 +68,15 @@
         "size": {
             ".data": 4, 
             ".bss": 66, 
-            ".text": 1390
+            ".text": 1446
         }
     }, 
     {
         "module": "mbed-os\\platform", 
         "size": {
             ".data": 4, 
-            ".bss": 270, 
-            ".text": 1638
+            ".bss": 354, 
+            ".text": 3387
         }
     }, 
     {
@@ -84,21 +84,21 @@
         "size": {
             ".data": 168, 
             ".bss": 5989, 
-            ".text": 8784
+            ".text": 9062
         }
     }, 
     {
         "module": "mbed-os\\targets", 
         "size": {
             ".data": 4, 
-            ".bss": 408, 
-            ".text": 11894
+            ".bss": 468, 
+            ".text": 14124
         }
     }, 
     {
         "summary": {
-            "static_ram": 10976, 
-            "total_flash": 66090
+            "static_ram": 10932, 
+            "total_flash": 74438
         }
     }
 ]

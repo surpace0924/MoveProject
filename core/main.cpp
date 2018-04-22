@@ -1,30 +1,27 @@
 #include <mbed.h>
 #include "Config.hpp"
 #include "Macro.h"
-#include "Libraries/SBUS/SBUS.hpp"
-#include "Libraries/Sensor/Sensor.hpp"
+#include "Libraries/PS3/PS3.hpp"
 #include "Libraries/MPU6050/MPU6050.hpp"
 #include "Libraries/Mecanum/Mecanum.hpp"
-#include "Libraries/Steering/Steering.hpp"
-#include "Libraries/RS485/RS485.hpp"
+#include "Libraries/DebugSerial/DebugSerial.h"
+#include "Libraries/Pid/Pid.hpp"
 
-DigitalOut led1(LED1);
+PwmOut led1(LED1);
 
 DigitalOut ledR(PC_1);
 DigitalOut ledG(PC_0);
 DigitalOut ledB(PB_0);
 
-RawSerial xbee(USBTX, USBRX); // Serial2
+DebugSerial debugger(USBTX, USBRX, 57600); // Serial2
 
 MPU6050 mpu(PB_9, PB_8); // I2C1
-SBUS propo(PB_6, PB_7);  // Serial6
+PS3 ps3(PB_6, PB_7);     // Serial6
 
 RawSerial port1(PA_11, PA_12); // Serial1
 
 Mecanum mecanum;
-// Steering steer;
 
-Timer deltaTimer;
 Timer aTimer;
 Timer bTimer;
 
@@ -35,8 +32,6 @@ void setTargetAngle();
 void decideAngleCorrection();
 void resetAngles();
 void sendDataToMD();
-
-double sign(double A);
 
 namespace yawAngle
 {
@@ -55,19 +50,16 @@ namespace distance
 double toFence = 0;
 }
 
-int arg[4] = {0};
-
 bool flag = false;
 bool bFlag = false;
+
 int main()
 {
-    xbee.baud(baud::XBEE);
+    debugger.baud(baud::debugger);
 
-    propo.begin();
+    ps3.begin();
 
     port1.baud(baud::RS485);
-
-    deltaTimer.start();
 
     led1 = 0;
     ledR = 0;
@@ -76,23 +68,32 @@ int main()
 
     while (1)
     {
+        debugger.cls();
         double acc[3] = {0};
         double gyro[3] = {0};
         mpu.getAccelero(acc);
         mpu.getGyro(gyro);
 
         resetAngles();
-
         calculateYawAngle(gyro[2]);
 
-        if (!propo.isFailsafe())
+        if (!ps3.isFailsafe())
         {
             setBodyVelocity();
-
             setTargetAngle();
             decideAngleCorrection();
 
-            if (propo.getSwitchVal(6) == 1)
+            int maxSpeed = 100;
+            int maxAccelTime = 500;
+            int maxdecelTime = 300;
+
+            int decelTime;
+
+            int lastVelo;
+
+            int decelStartVelo;
+
+            if (ps3.getButtonVal(6) == 1)
             {
                 // 立ち上がり判定
                 if (flag == false)
@@ -102,15 +103,15 @@ int main()
                     aTimer.start();
                 }
 
-                if (aTimer.read_ms() < 500)
+                if (aTimer.read_ms() < maxAccelTime)
                 {
-                    velocity::body[0] = 100 * (1 - cos(aTimer.read_ms() * M_PI / 500)) / 2;
+                    velocity::body[0] = maxSpeed * (1 - cos(aTimer.read_ms() * M_PI / maxAccelTime)) / 2;
                 }
                 else
                 {
-                    velocity::body[0] = 100;
+                    velocity::body[0] = maxSpeed;
                 }
-
+                lastVelo = velocity::body[0];
                 bFlag = false;
             }
             else
@@ -118,24 +119,25 @@ int main()
                 if (bFlag == false)
                 {
                     bFlag = true;
+                    decelStartVelo = lastVelo;
+                    decelTime = (int)((double)decelStartVelo / maxSpeed * maxdecelTime);
                     bTimer.reset();
                     bTimer.start();
                 }
 
-                if (bTimer.read_ms() < 500)
+                if (bTimer.read_ms() < decelTime)
                 {
-                    velocity::body[0] = 100 * ((-(1 - cos(bTimer.read_ms() * M_PI / 500)) / 2) + 1);
+                    velocity::body[0] = decelStartVelo * ((-(1 - cos(bTimer.read_ms() * M_PI / decelTime)) / 2) + 1);
                 }
 
                 flag = false;
-                if (propo.getSwitchVal(12) == 1)
+                if (ps3.getButtonVal(12) == 1)
                 {
-                    velocity::body[0] = 255;
+                    velocity::body[0] = maxSpeed;
                 }
             }
-            // =$D$1*((-(1-COS(B2*PI()/$E$1))/2)+1)
 
-            if (!propo.isFailsafe() && (velocity::body[0] != 0 || velocity::body[1] != 0 || velocity::body[2] != 0))
+            if (!ps3.isFailsafe() && (velocity::body[0] != 0 || velocity::body[1] != 0 || velocity::body[2] != 0))
             {
                 mecanum.calculate(velocity::body, 254, yawAngle::target, velocity::wheel);
             }
@@ -148,47 +150,39 @@ int main()
             }
 
             sendDataToMD();
-
             debug();
-            led1 = !led1;
+
+            led1 = (double)velocity::body[0] / 100.;
             wait(cycle::LOOP);
         }
     }
 }
 
-double sign(double A)
-{
-    return (A > 0) - (A < 0);
-}
-
 void debug()
 {
-    if (propo.isFailsafe() == true)
-        xbee.printf("[NG]\t");
+    if (ps3.isFailsafe() == true)
+        debugger.printf("[NG]\t");
     else
-        xbee.printf("[OK]\t");
+        debugger.printf("[OK]\t");
 
     for (int i = 0; i < 3; i++)
-        xbee.printf("%d\t", velocity::body[i]);
+        debugger.printf("%d\t", velocity::body[i]);
 
-    xbee.printf("%.3lf\t", yawAngle::now);
-    xbee.printf("%.3lf\t", distance::toFence);
-
-    for (int i = 0; i < 4; i++)
-    {
-        xbee.printf("%d\t", arg[i]);
-    }
+    debugger.printf("%.3lf\t", yawAngle::target);
+    debugger.printf("%.3lf\t", yawAngle::now);
 
     for (int i = 0; i < 4; i++)
     {
-        xbee.printf("%d\t", velocity::wheel[i]);
+        debugger.printf("%d\t", velocity::wheel[i]);
     }
 
-    xbee.printf("\n");
+    debugger.printf("\n");
 }
 
 void calculateYawAngle(double gyroZ)
 {
+    static Timer deltaTimer;
+    deltaTimer.start();
     static double lastGyroZ = 0;
 
     if (abs(gyroZ) < 0.4)
@@ -207,60 +201,63 @@ void calculateYawAngle(double gyroZ)
 
 void setBodyVelocity()
 {
-    if (!propo.isFailsafe())
+    if (!ps3.isFailsafe())
     {
         for (int i = 0; i < 3; i++)
-            velocity::body[i] = (abs(propo.getStickVal(i)) > 20) ? propo.getStickVal(i) : 0;
-    }
-}
-
-void setTargetAngle()
-{
-    if (abs(propo.getStickVal(2)) > 20)
-    {
-        yawAngle::target = yawAngle::now;
-        // int temp = (int)(yawAngle::now / 15);
-        // yawAngle::target = temp * 15;
-    }
-
-    if (propo.getSwitchVal(1))
-    {
-        yawAngle::target = 0;
-    }
-
-    if (propo.getSwitchVal(2))
-    {
-        yawAngle::target = -90;
-    }
-
-    if (propo.getSwitchVal(3))
-    {
-        yawAngle::target = 180;
-    }
-
-    if (propo.getSwitchVal(4))
-    {
-        yawAngle::target = 90;
+            velocity::body[i] = (abs(ps3.getStickVal(i)) > 20) ? ps3.getStickVal(i) : 0;
     }
 }
 
 void resetAngles()
 {
-    if (propo.getSwitchVal(0) != 0)
+    if (ps3.getButtonVal(0) != 0)
     {
         yawAngle::now = 0;
         yawAngle::target = 0;
     }
 }
 
-void decideAngleCorrection()
+void setTargetAngle()
 {
-    int gain;
-    gain = angleGain::GYRO_P * (yawAngle::target - yawAngle::now);
+    if (abs(ps3.getStickVal(2)) > 20)
+    {
+        yawAngle::target = yawAngle::now;
+        // int temp = (int)(yawAngle::now / 15);
+        // yawAngle::target = temp * 15;
+    }
 
-    velocity::body[2] += gain;
+    if (ps3.getButtonVal(1))
+    {
+        yawAngle::target = 0;
+    }
+
+    if (ps3.getButtonVal(2))
+    {
+        yawAngle::target = -90;
+    }
+
+    if (ps3.getButtonVal(3))
+    {
+        yawAngle::target = 180;
+    }
+
+    if (ps3.getButtonVal(4))
+    {
+        yawAngle::target = 90;
+    }
 }
 
+void decideAngleCorrection()
+{
+    static Pid anglePid(angleGain::GYRO_P, 0., 0.);
+
+    // PIDで算出した補正値を回転速度ベクトルに加算
+    velocity::body[2] += anglePid.calculate(yawAngle::target, yawAngle::now);
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////
+// 2017MDと通信するための関数
+// どうせ新しくなるだろうから即席で作った
 void sendDataToMD()
 {
     uint8_t packet[15] = {0}; // 送信データ（パケット）
@@ -282,8 +279,9 @@ void sendDataToMD()
         packet[i++] = absPwm[j++];
     }
 
+    // 角度
     for (int i = 0; i < 4; i++)
-        packet[i + 10] = arg[i];
+        packet[i + 10] = 0;
 
     // チェックサムの計算
     for (i = 2; i <= 13; i++)

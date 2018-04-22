@@ -13,10 +13,9 @@ void Mecanum::calculate(int velocityVector[3], int maxOutputRate, double nowAngl
     int x = velocityVector[0];
     int y = velocityVector[1];
     
-    velocity[0] = x * cos(-nowAngle * M_PI / 180.0) - y * sin(-nowAngle * M_PI / 180.0);
-    velocity[1] = x * sin(-nowAngle * M_PI / 180.0) + y * cos(-nowAngle * M_PI / 180.0);
+    velocity[0] = (int)(x * cos(-nowAngle * M_PI / 180.0) - y * sin(-nowAngle * M_PI / 180.0));
+    velocity[1] = (int)(x * sin(-nowAngle * M_PI / 180.0) + y * cos(-nowAngle * M_PI / 180.0));
     velocity[2] = velocityVector[2];
-
     // 行列計算を簡単にするために配列（線形変換前のベクトル）に代入する
     int outputRate[4];
 

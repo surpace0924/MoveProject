@@ -1,6 +1,8 @@
-..\BUILD\NUCLEO_F401RE\GCC_ARM\core\main.o: ..\core\main.cpp \
- ..\BUILD\NUCLEO_F401RE\GCC_ARM\mbed_config.h ../mbed-os/mbed.h \
- ../mbed-os/rtos/rtos.h ../mbed-os/rtos/TARGET_CORTEX/mbed_rtos_storage.h \
+..\BUILD\NUCLEO_F401RE\GCC_ARM\core\Libraries\Pid\Pid.o: \
+ ..\core\Libraries\Pid\Pid.cpp \
+ ..\BUILD\NUCLEO_F401RE\GCC_ARM\mbed_config.h \
+ ..\core\Libraries\Pid\Pid.hpp ../mbed-os/mbed.h ../mbed-os/rtos/rtos.h \
+ ../mbed-os/rtos/TARGET_CORTEX/mbed_rtos_storage.h \
  ../mbed-os/rtos/TARGET_CORTEX/rtx5/RTX/Source/rtx_lib.h \
  ../mbed-os/rtos/TARGET_CORTEX/rtx5/RTX/Source/rtx_core_c.h \
  ../mbed-os/targets/TARGET_STM/TARGET_STM32F4/TARGET_STM32F401xE/device/cmsis.h \
@@ -194,10 +196,4 @@
  ../mbed-os/platform/DirHandle.h \
  ../mbed-os/platform/CriticalSectionLock.h \
  ../mbed-os/platform/DeepSleepLock.h ../mbed-os/platform/Callback.h \
- ../mbed-os/platform/FunctionPointer.h ..\core\Config.hpp ..\core\Macro.h \
- ..\core\Libraries/PS3/PS3.hpp ..\core\Libraries/PS3/Macro.h \
- ../core/Libraries/../Macro.h ..\core\Libraries/MPU6050/MPU6050.hpp \
- ..\core\Libraries/MPU6050/Macro.h ..\core\Libraries/Mecanum/Mecanum.hpp \
- ..\core\Libraries/Mecanum/Macro.h \
- ..\core\Libraries/DebugSerial/DebugSerial.h \
- ..\core\Libraries/Pid/Pid.hpp
+ ../mbed-os/platform/FunctionPointer.h
