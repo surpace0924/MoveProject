@@ -3,8 +3,8 @@
         "module": "[fill]", 
         "size": {
             ".data": 8, 
-            ".bss": 24, 
-            ".text": 138
+            ".bss": 36, 
+            ".text": 126
         }
     }, 
     {
@@ -20,7 +20,7 @@
         "size": {
             ".data": 0, 
             ".bss": 0, 
-            ".text": 3752
+            ".text": 3912
         }
     }, 
     {
@@ -52,7 +52,7 @@
         "size": {
             ".data": 4, 
             ".bss": 1219, 
-            ".text": 2476
+            ".text": 2746
         }
     }, 
     {
@@ -68,7 +68,7 @@
         "size": {
             ".data": 4, 
             ".bss": 66, 
-            ".text": 1390
+            ".text": 1446
         }
     }, 
     {
@@ -91,14 +91,14 @@
         "module": "mbed-os\\targets", 
         "size": {
             ".data": 4, 
-            ".bss": 408, 
-            ".text": 11894
+            ".bss": 468, 
+            ".text": 14124
         }
     }, 
     {
         "summary": {
-            "static_ram": 10860, 
-            "total_flash": 71734
+            "static_ram": 10932, 
+            "total_flash": 74438
         }
     }
 ]

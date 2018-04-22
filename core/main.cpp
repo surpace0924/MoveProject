@@ -7,7 +7,7 @@
 #include "Libraries/DebugSerial/DebugSerial.h"
 #include "Libraries/Pid/Pid.hpp"
 
-DigitalOut led1(LED1);
+PwmOut led1(LED1);
 
 DigitalOut ledR(PC_1);
 DigitalOut ledG(PC_0);
@@ -25,7 +25,6 @@ Mecanum mecanum;
 Timer aTimer;
 Timer bTimer;
 
-
 void debug();
 void calculateYawAngle(double gyroZ);
 void setBodyVelocity();
@@ -33,8 +32,6 @@ void setTargetAngle();
 void decideAngleCorrection();
 void resetAngles();
 void sendDataToMD();
-
-double sign(double A);
 
 namespace yawAngle
 {
@@ -71,7 +68,7 @@ int main()
 
     while (1)
     {
-        // debugger.cls();
+        debugger.cls();
         double acc[3] = {0};
         double gyro[3] = {0};
         mpu.getAccelero(acc);
@@ -83,9 +80,18 @@ int main()
         if (!ps3.isFailsafe())
         {
             setBodyVelocity();
-
             setTargetAngle();
             decideAngleCorrection();
+
+            int maxSpeed = 100;
+            int maxAccelTime = 500;
+            int maxdecelTime = 300;
+
+            int decelTime;
+
+            int lastVelo;
+
+            int decelStartVelo;
 
             if (ps3.getButtonVal(6) == 1)
             {
@@ -97,15 +103,15 @@ int main()
                     aTimer.start();
                 }
 
-                if (aTimer.read_ms() < 500)
+                if (aTimer.read_ms() < maxAccelTime)
                 {
-                    velocity::body[0] = 100 * (1 - cos(aTimer.read_ms() * M_PI / 500)) / 2;
+                    velocity::body[0] = maxSpeed * (1 - cos(aTimer.read_ms() * M_PI / maxAccelTime)) / 2;
                 }
                 else
                 {
-                    velocity::body[0] = 100;
+                    velocity::body[0] = maxSpeed;
                 }
-
+                lastVelo = velocity::body[0];
                 bFlag = false;
             }
             else
@@ -113,19 +119,21 @@ int main()
                 if (bFlag == false)
                 {
                     bFlag = true;
+                    decelStartVelo = lastVelo;
+                    decelTime = (int)((double)decelStartVelo / maxSpeed * maxdecelTime);
                     bTimer.reset();
                     bTimer.start();
                 }
 
-                if (bTimer.read_ms() < 500)
+                if (bTimer.read_ms() < decelTime)
                 {
-                    velocity::body[0] = 100 * ((-(1 - cos(bTimer.read_ms() * M_PI / 500)) / 2) + 1);
+                    velocity::body[0] = decelStartVelo * ((-(1 - cos(bTimer.read_ms() * M_PI / decelTime)) / 2) + 1);
                 }
 
                 flag = false;
                 if (ps3.getButtonVal(12) == 1)
                 {
-                    velocity::body[0] = 255;
+                    velocity::body[0] = maxSpeed;
                 }
             }
 
@@ -144,36 +152,29 @@ int main()
             sendDataToMD();
             debug();
 
-            led1 = !led1;
+            led1 = (double)velocity::body[0] / 100.;
             wait(cycle::LOOP);
         }
     }
 }
 
-double sign(double A)
-{
-    return (A > 0) - (A < 0);
-}
-
 void debug()
 {
-    // if (ps3.isFailsafe() == true)
-    //     debugger.printf("[NG]\t");
-    // else
-    //     debugger.printf("[OK]\t");
+    if (ps3.isFailsafe() == true)
+        debugger.printf("[NG]\t");
+    else
+        debugger.printf("[OK]\t");
 
-    // for (int i = 0; i < 3; i++)
-    //     debugger.printf("%d\t", velocity::body[i]);
-
-    debugger.printf("%d\t", velocity::body[2]);
+    for (int i = 0; i < 3; i++)
+        debugger.printf("%d\t", velocity::body[i]);
 
     debugger.printf("%.3lf\t", yawAngle::target);
     debugger.printf("%.3lf\t", yawAngle::now);
 
-    // for (int i = 0; i < 4; i++)
-    // {
-    //     debugger.printf("%d\t", velocity::wheel[i]);
-    // }
+    for (int i = 0; i < 4; i++)
+    {
+        debugger.printf("%d\t", velocity::wheel[i]);
+    }
 
     debugger.printf("\n");
 }
@@ -254,6 +255,7 @@ void decideAngleCorrection()
     velocity::body[2] += anglePid.calculate(yawAngle::target, yawAngle::now);
 }
 
+/////////////////////////////////////////////////////////////////////////////////////////
 // 2017MDと通信するための関数
 // どうせ新しくなるだろうから即席で作った
 void sendDataToMD()
