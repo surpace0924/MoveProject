@@ -3,8 +3,8 @@
         "module": "[fill]", 
         "size": {
             ".data": 8, 
-            ".bss": 36, 
-            ".text": 108
+            ".bss": 24, 
+            ".text": 112
         }
     }, 
     {
@@ -42,17 +42,17 @@
     {
         "module": "core\\Libraries", 
         "size": {
-            ".data": 100, 
-            ".bss": 188, 
-            ".text": 2030
+            ".data": 96, 
+            ".bss": 0, 
+            ".text": 1916
         }
     }, 
     {
         "module": "core\\main.o", 
         "size": {
             ".data": 4, 
-            ".bss": 1275, 
-            ".text": 1983
+            ".bss": 1147, 
+            ".text": 2021
         }
     }, 
     {
@@ -97,8 +97,8 @@
     }, 
     {
         "summary": {
-            "static_ram": 10976, 
-            "total_flash": 66090
+            "static_ram": 10644, 
+            "total_flash": 66014
         }
     }
 ]

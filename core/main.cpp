@@ -1,7 +1,7 @@
 #include <mbed.h>
 #include "Config.hpp"
 #include "Macro.h"
-#include "Libraries/SBUS/SBUS.hpp"
+#include "Libraries/PS3/PS3.hpp"
 #include "Libraries/Sensor/Sensor.hpp"
 #include "Libraries/MPU6050/MPU6050.hpp"
 #include "Libraries/Mecanum/Mecanum.hpp"
@@ -17,7 +17,7 @@ DigitalOut ledB(PB_0);
 RawSerial xbee(USBTX, USBRX); // Serial2
 
 MPU6050 mpu(PB_9, PB_8); // I2C1
-SBUS propo(PB_6, PB_7);  // Serial6
+PS3 ps3(PB_6, PB_7);  // Serial6
 
 RawSerial port1(PA_11, PA_12); // Serial1
 
@@ -63,7 +63,7 @@ int main()
 {
     xbee.baud(baud::XBEE);
 
-    propo.begin();
+    ps3.begin();
 
     port1.baud(baud::RS485);
 
@@ -85,14 +85,14 @@ int main()
 
         calculateYawAngle(gyro[2]);
 
-        if (!propo.isFailsafe())
+        if (!ps3.isFailsafe())
         {
             setBodyVelocity();
 
             setTargetAngle();
             decideAngleCorrection();
 
-            if (propo.getSwitchVal(6) == 1)
+            if (ps3.getButtonVal(6) == 1)
             {
                 // 立ち上がり判定
                 if (flag == false)
@@ -128,14 +128,14 @@ int main()
                 }
 
                 flag = false;
-                if (propo.getSwitchVal(12) == 1)
+                if (ps3.getButtonVal(12) == 1)
                 {
                     velocity::body[0] = 255;
                 }
             }
             // =$D$1*((-(1-COS(B2*PI()/$E$1))/2)+1)
 
-            if (!propo.isFailsafe() && (velocity::body[0] != 0 || velocity::body[1] != 0 || velocity::body[2] != 0))
+            if (!ps3.isFailsafe() && (velocity::body[0] != 0 || velocity::body[1] != 0 || velocity::body[2] != 0))
             {
                 mecanum.calculate(velocity::body, 254, yawAngle::target, velocity::wheel);
             }
@@ -163,7 +163,7 @@ double sign(double A)
 
 void debug()
 {
-    if (propo.isFailsafe() == true)
+    if (ps3.isFailsafe() == true)
         xbee.printf("[NG]\t");
     else
         xbee.printf("[OK]\t");
@@ -207,38 +207,38 @@ void calculateYawAngle(double gyroZ)
 
 void setBodyVelocity()
 {
-    if (!propo.isFailsafe())
+    if (!ps3.isFailsafe())
     {
         for (int i = 0; i < 3; i++)
-            velocity::body[i] = (abs(propo.getStickVal(i)) > 20) ? propo.getStickVal(i) : 0;
+            velocity::body[i] = (abs(ps3.getStickVal(i)) > 20) ? ps3.getStickVal(i) : 0;
     }
 }
 
 void setTargetAngle()
 {
-    if (abs(propo.getStickVal(2)) > 20)
+    if (abs(ps3.getStickVal(2)) > 20)
     {
         yawAngle::target = yawAngle::now;
         // int temp = (int)(yawAngle::now / 15);
         // yawAngle::target = temp * 15;
     }
 
-    if (propo.getSwitchVal(1))
+    if (ps3.getButtonVal(1))
     {
         yawAngle::target = 0;
     }
 
-    if (propo.getSwitchVal(2))
+    if (ps3.getButtonVal(2))
     {
         yawAngle::target = -90;
     }
 
-    if (propo.getSwitchVal(3))
+    if (ps3.getButtonVal(3))
     {
         yawAngle::target = 180;
     }
 
-    if (propo.getSwitchVal(4))
+    if (ps3.getButtonVal(4))
     {
         yawAngle::target = 90;
     }
@@ -246,7 +246,7 @@ void setTargetAngle()
 
 void resetAngles()
 {
-    if (propo.getSwitchVal(0) != 0)
+    if (ps3.getButtonVal(0) != 0)
     {
         yawAngle::now = 0;
         yawAngle::target = 0;
