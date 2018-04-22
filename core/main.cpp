@@ -2,11 +2,10 @@
 #include "Config.hpp"
 #include "Macro.h"
 #include "Libraries/PS3/PS3.hpp"
-#include "Libraries/Sensor/Sensor.hpp"
 #include "Libraries/MPU6050/MPU6050.hpp"
 #include "Libraries/Mecanum/Mecanum.hpp"
-#include "Libraries/Steering/Steering.hpp"
-#include "Libraries/RS485/RS485.hpp"
+#include "Libraries/DebugSerial/DebugSerial.h"
+#include "Libraries/Pid/Pid.hpp"
 
 DigitalOut led1(LED1);
 
@@ -14,19 +13,18 @@ DigitalOut ledR(PC_1);
 DigitalOut ledG(PC_0);
 DigitalOut ledB(PB_0);
 
-RawSerial xbee(USBTX, USBRX); // Serial2
+DebugSerial debugger(USBTX, USBRX, 57600); // Serial2
 
 MPU6050 mpu(PB_9, PB_8); // I2C1
-PS3 ps3(PB_6, PB_7);  // Serial6
+PS3 ps3(PB_6, PB_7);     // Serial6
 
 RawSerial port1(PA_11, PA_12); // Serial1
 
 Mecanum mecanum;
-// Steering steer;
 
-Timer deltaTimer;
 Timer aTimer;
 Timer bTimer;
+
 
 void debug();
 void calculateYawAngle(double gyroZ);
@@ -55,19 +53,16 @@ namespace distance
 double toFence = 0;
 }
 
-int arg[4] = {0};
-
 bool flag = false;
 bool bFlag = false;
+
 int main()
 {
-    xbee.baud(baud::XBEE);
+    debugger.baud(baud::debugger);
 
     ps3.begin();
 
     port1.baud(baud::RS485);
-
-    deltaTimer.start();
 
     led1 = 0;
     ledR = 0;
@@ -76,13 +71,13 @@ int main()
 
     while (1)
     {
+        // debugger.cls();
         double acc[3] = {0};
         double gyro[3] = {0};
         mpu.getAccelero(acc);
         mpu.getGyro(gyro);
 
         resetAngles();
-
         calculateYawAngle(gyro[2]);
 
         if (!ps3.isFailsafe())
@@ -133,7 +128,6 @@ int main()
                     velocity::body[0] = 255;
                 }
             }
-            // =$D$1*((-(1-COS(B2*PI()/$E$1))/2)+1)
 
             if (!ps3.isFailsafe() && (velocity::body[0] != 0 || velocity::body[1] != 0 || velocity::body[2] != 0))
             {
@@ -148,8 +142,8 @@ int main()
             }
 
             sendDataToMD();
-
             debug();
+
             led1 = !led1;
             wait(cycle::LOOP);
         }
@@ -163,32 +157,31 @@ double sign(double A)
 
 void debug()
 {
-    if (ps3.isFailsafe() == true)
-        xbee.printf("[NG]\t");
-    else
-        xbee.printf("[OK]\t");
+    // if (ps3.isFailsafe() == true)
+    //     debugger.printf("[NG]\t");
+    // else
+    //     debugger.printf("[OK]\t");
 
-    for (int i = 0; i < 3; i++)
-        xbee.printf("%d\t", velocity::body[i]);
+    // for (int i = 0; i < 3; i++)
+    //     debugger.printf("%d\t", velocity::body[i]);
 
-    xbee.printf("%.3lf\t", yawAngle::now);
-    xbee.printf("%.3lf\t", distance::toFence);
+    debugger.printf("%d\t", velocity::body[2]);
 
-    for (int i = 0; i < 4; i++)
-    {
-        xbee.printf("%d\t", arg[i]);
-    }
+    debugger.printf("%.3lf\t", yawAngle::target);
+    debugger.printf("%.3lf\t", yawAngle::now);
 
-    for (int i = 0; i < 4; i++)
-    {
-        xbee.printf("%d\t", velocity::wheel[i]);
-    }
+    // for (int i = 0; i < 4; i++)
+    // {
+    //     debugger.printf("%d\t", velocity::wheel[i]);
+    // }
 
-    xbee.printf("\n");
+    debugger.printf("\n");
 }
 
 void calculateYawAngle(double gyroZ)
 {
+    static Timer deltaTimer;
+    deltaTimer.start();
     static double lastGyroZ = 0;
 
     if (abs(gyroZ) < 0.4)
@@ -211,6 +204,15 @@ void setBodyVelocity()
     {
         for (int i = 0; i < 3; i++)
             velocity::body[i] = (abs(ps3.getStickVal(i)) > 20) ? ps3.getStickVal(i) : 0;
+    }
+}
+
+void resetAngles()
+{
+    if (ps3.getButtonVal(0) != 0)
+    {
+        yawAngle::now = 0;
+        yawAngle::target = 0;
     }
 }
 
@@ -244,23 +246,16 @@ void setTargetAngle()
     }
 }
 
-void resetAngles()
-{
-    if (ps3.getButtonVal(0) != 0)
-    {
-        yawAngle::now = 0;
-        yawAngle::target = 0;
-    }
-}
-
 void decideAngleCorrection()
 {
-    int gain;
-    gain = angleGain::GYRO_P * (yawAngle::target - yawAngle::now);
+    static Pid anglePid(angleGain::GYRO_P, 0., 0.);
 
-    velocity::body[2] += gain;
+    // PIDで算出した補正値を回転速度ベクトルに加算
+    velocity::body[2] += anglePid.calculate(yawAngle::target, yawAngle::now);
 }
 
+// 2017MDと通信するための関数
+// どうせ新しくなるだろうから即席で作った
 void sendDataToMD()
 {
     uint8_t packet[15] = {0}; // 送信データ（パケット）
@@ -282,8 +277,9 @@ void sendDataToMD()
         packet[i++] = absPwm[j++];
     }
 
+    // 角度
     for (int i = 0; i < 4; i++)
-        packet[i + 10] = arg[i];
+        packet[i + 10] = 0;
 
     // チェックサムの計算
     for (i = 2; i <= 13; i++)
