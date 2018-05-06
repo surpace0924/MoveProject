@@ -196,5 +196,4 @@
  ../mbed-os/platform/CriticalSectionLock.h \
  ../mbed-os/platform/DeepSleepLock.h ../mbed-os/platform/Callback.h \
  ../mbed-os/platform/FunctionPointer.h \
- ..\core\Libraries\Sensor\Sensor.hpp ..\core\Libraries\Sensor\Macro.h \
- ../core/Libraries/../Macro.h
+ ..\core\Libraries\Sensor\Sensor.hpp

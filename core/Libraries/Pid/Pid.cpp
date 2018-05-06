@@ -16,7 +16,7 @@ double Pid::calculate(double targetVal, double nowVal)
     double p, i, d;
 
     diff[0] = targetVal - nowVal;
-    integral += nowVal * (long double)((deltaTimer.read_us()) / (2.0 * 1000000.0));
+    integral += (diff[0] + diff[1]) * (long double)((deltaTimer.read_us()) / (2.0 * 1000000.0));
     
     p = Kp * diff[0];
     i = Ki * integral;

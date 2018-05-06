@@ -9,7 +9,6 @@ PS3::PS3(PinName tx, PinName rx) : port(tx, rx)
     {
         data[i] = 0;
     }
-    data[5] = 150;
 }
 
 void PS3::begin()
