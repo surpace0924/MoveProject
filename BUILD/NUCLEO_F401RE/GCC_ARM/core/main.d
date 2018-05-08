@@ -200,4 +200,4 @@
  ..\core\Libraries/MPU6050/Macro.h ..\core\Libraries/Mecanum/Mecanum.hpp \
  ..\core\Libraries/Mecanum/Macro.h \
  ..\core\Libraries/DebugSerial/DebugSerial.h \
- ..\core\Libraries/Pid/Pid.hpp
+ ..\core\Libraries/Pid/Pid.hpp ..\core\Libraries/Sensor/Sensor.hpp

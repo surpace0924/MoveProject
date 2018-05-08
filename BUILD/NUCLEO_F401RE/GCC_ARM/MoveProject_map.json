@@ -3,8 +3,8 @@
         "module": "[fill]", 
         "size": {
             ".data": 8, 
-            ".bss": 36, 
-            ".text": 126
+            ".bss": 30, 
+            ".text": 146
         }
     }, 
     {
@@ -44,15 +44,15 @@
         "size": {
             ".data": 96, 
             ".bss": 60, 
-            ".text": 2234
+            ".text": 2550
         }
     }, 
     {
         "module": "core\\main.o", 
         "size": {
             ".data": 4, 
-            ".bss": 1219, 
-            ".text": 2746
+            ".bss": 1769, 
+            ".text": 3008
         }
     }, 
     {
@@ -60,7 +60,7 @@
         "size": {
             ".data": 4, 
             ".bss": 144, 
-            ".text": 2099
+            ".text": 2081
         }
     }, 
     {
@@ -68,7 +68,7 @@
         "size": {
             ".data": 4, 
             ".bss": 66, 
-            ".text": 1446
+            ".text": 1490
         }
     }, 
     {
@@ -97,8 +97,8 @@
     }, 
     {
         "summary": {
-            "static_ram": 10932, 
-            "total_flash": 74438
+            "static_ram": 11476, 
+            "total_flash": 75062
         }
     }
 ]
